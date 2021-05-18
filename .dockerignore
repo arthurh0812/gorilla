@@ -1,0 +1,9 @@
+Dockerfile
+.dockerignore
+.gitignore
+.git
+
+*.env
+*secret.env
+*secret.yaml
+*secret.json

@@ -1,0 +1,8 @@
+# vendors
+vendor/
+node_modules/
+
+# secrets
+*secret.env
+*secret.yaml
+*secret.json
