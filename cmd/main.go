@@ -11,8 +11,21 @@ import (
 
 func main() {
 	r := mux.NewRouter()
+	logger := log.Default()
 
-	r.Handle("/api", handlers.API{})
+	root := r.Path("/")
+	root.Name("rootRoute")
+	root.Handler(handlers.NewRoot(logger))
+
+	api := r.Path("/api")
+	api.Name("apiRoute")
+	api.Handler(handlers.NewAPI(logger))
+
+	login := r.Path("/login")
+	login.Name("loginRoute")
+	login.Handler(handlers.NewLogin(logger))
+
+	r.NotFoundHandler = handlers.NewError(logger, http.StatusNotFound)
 
 	err := http.ListenAndServe(Env["HOST"] + ":" + Env["PORT"], r)
 	if err != nil {
